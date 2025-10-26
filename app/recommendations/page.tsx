@@ -5,19 +5,57 @@ import { RecommendationCard } from "@/components/recommendation-card"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { generateRecommendations } from "@/lib/ai-recommendations"
-import { Sparkles } from "lucide-react"
+import { recommendationService } from "@/lib/api-services"
+import { Sparkles, Loader2 } from "lucide-react"
 import { useState } from "react"
+import { toast } from "sonner"
 
 export default function RecommendationsPage() {
-  const { data, updateRecommendation } = useFinancial()
+  const { data, updateRecommendation, addRecommendation } = useFinancial()
   const [activeTab, setActiveTab] = useState("all")
+  const [isGenerating, setIsGenerating] = useState(false)
 
-  const handleGenerateRecommendations = () => {
-    const newRecommendations = generateRecommendations(data)
-    // In a real app, you would add these to the context
-    // For now, they're already in the initial data
-    console.log("[v0] Generated recommendations:", newRecommendations)
+  const handleGenerateRecommendations = async () => {
+    setIsGenerating(true)
+    try {
+      // Call backend AI service to generate recommendations
+      const result = await recommendationService.generate()
+      
+      // Add generated recommendations to the context
+      if (result.recommendations && Array.isArray(result.recommendations)) {
+        result.recommendations.forEach((rec: any) => {
+          addRecommendation({
+            title: rec.title || rec.category || 'Financial Recommendation',
+            description: rec.description || rec.text || rec.detail || '',
+            category: (rec.category === 'general' ? 'savings' : rec.category) || 'savings',
+            status: 'pending',
+          })
+        })
+        
+        toast.success('AI Recommendations Generated!', {
+          description: `Generated ${result.recommendations.length} personalized insights based on your financial data.`,
+        })
+      } else if (result.textSummary) {
+        // If backend returns text summary, create a single recommendation
+        addRecommendation({
+          title: 'AI Financial Analysis',
+          description: result.textSummary,
+          category: 'savings',
+          status: 'pending',
+        })
+        
+        toast.success('AI Analysis Complete!', {
+          description: 'Review your personalized financial insights below.',
+        })
+      }
+    } catch (error) {
+      console.error('Failed to generate recommendations:', error)
+      toast.error('Failed to Generate Recommendations', {
+        description: error instanceof Error ? error.message : 'Please try again later.',
+      })
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
   const pendingRecommendations = data.recommendations.filter((rec) => rec.status === "pending")
@@ -43,9 +81,18 @@ export default function RecommendationsPage() {
           <h1 className="text-3xl font-bold tracking-tight">AI Recommendations</h1>
           <p className="text-muted-foreground">Personalized financial advice based on your data</p>
         </div>
-        <Button onClick={handleGenerateRecommendations}>
-          <Sparkles className="h-4 w-4 mr-2" />
-          Generate New Insights
+        <Button onClick={handleGenerateRecommendations} disabled={isGenerating}>
+          {isGenerating ? (
+            <>
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              Generating...
+            </>
+          ) : (
+            <>
+              <Sparkles className="h-4 w-4 mr-2" />
+              Generate New Insights
+            </>
+          )}
         </Button>
       </div>
 
