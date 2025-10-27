@@ -18,7 +18,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "WealthTrack - Personal Wealth Management",
   description: "Track your income, assets, liabilities, and get AI-powered financial recommendations",
-    generator: 'v0.app'
+  generator: 'v0.app',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
@@ -27,11 +32,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`} suppressHydrationWarning>
+      <body className="antialiased min-h-screen" suppressHydrationWarning>
         <FinancialProvider>
           <NavBar />
-          <main className="container mx-auto px-4 py-8">{children}</main>
+          <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-7xl">
+            {children}
+          </main>
         </FinancialProvider>
       </body>
     </html>
