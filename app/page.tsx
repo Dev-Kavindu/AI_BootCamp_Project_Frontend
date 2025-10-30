@@ -98,26 +98,26 @@ export default function DashboardPage() {
   const hasFinancialData = data.income.length > 0 || data.assets.length > 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-chart-1 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-chart-1 bg-clip-text text-transparent">
           WealthTrack Dashboard
         </h1>
-        <p className="text-muted-foreground mt-2 text-lg">
+        <p className="text-muted-foreground mt-2 text-sm sm:text-base lg:text-lg">
           Comprehensive overview of your financial health and wealth management
         </p>
       </div>
 
       {hasFinancialData && (
-        <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-[320px_1fr]">
           {/* Left Sidebar - Wealth Score */}
           <div>
             <WealthScoreCompact scoreResult={wealthScore} />
           </div>
 
           {/* Right Content - Stats Grid */}
-          <div className="space-y-6">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
               <StatCard title="Total Income" value={formatLKR(totalIncome)} icon={TrendingUp} trend="+12.5%" />
               <StatCard title="Total Assets" value={formatLKR(totalAssets)} icon={Building2} trend="+8.2%" />
               <StatCard
@@ -134,7 +134,7 @@ export default function DashboardPage() {
               />
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               <Card className="border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent shadow-lg hover:shadow-xl transition-shadow">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium">Net Worth</CardTitle>
@@ -176,7 +176,7 @@ export default function DashboardPage() {
       )}
 
       {!hasFinancialData && (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard title="Total Income" value={formatLKR(totalIncome)} icon={TrendingUp} trend="+12.5%" />
           <StatCard title="Total Assets" value={formatLKR(totalAssets)} icon={Building2} trend="+8.2%" />
           <StatCard title="Total Liabilities" value={formatLKR(totalLiabilities)} icon={AlertCircle} trend="-3.1%" />
@@ -194,7 +194,7 @@ export default function DashboardPage() {
 
       {netWorth > 0 && <AreaChart title="Net Worth Growth Trend (6 Months)" data={netWorthTrend} color="#fbbf24" />}
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
         {assetsByType.length > 0 && (
           <SectionPieChart
             title="Assets Distribution by Type"
@@ -212,7 +212,7 @@ export default function DashboardPage() {
       </div>
 
       {liabilitiesByType.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2">
           <LiabilitiesChart data={liabilitiesByType} title="Liabilities Overview by Type" />
           <SectionPieChart title="Liabilities Distribution" data={liabilitiesByType} colors={["#ef4444", "#10b981"]} />
         </div>
@@ -222,7 +222,7 @@ export default function DashboardPage() {
         <SectionPieChart
           title="Credit Cards Overview"
           data={data.creditCards.map((card) => ({
-            name: card.name,
+            name: `${card.bank} ****${card.lastFourDigits}`,
             value: convertToLKR(card.outstanding, card.currency),
           }))}
           colors={["#3b82f6", "#f59e0b", "#ec4899", "#f97316", "#8b5cf6", "#06b6d4", "#ef4444", "#10b981"]}

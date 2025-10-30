@@ -6,6 +6,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Ensure proper SSR and CSR handling
+  reactStrictMode: true,
+  // Optimize for production
+  swcMinify: true,
+  // Enable output file tracing for serverless
+  output: 'standalone',
 }
 
 export default nextConfig
