@@ -22,7 +22,7 @@ export function StatCard({ title, value, icon: Icon, trend }: StatCardProps) {
         {trend && (
           <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
             <span className={trend.startsWith("+") ? "text-green-600" : "text-red-600"}>{trend}</span>
-            <span>vs last month</span>
+            <span className="hidden sm:inline">vs last month</span>
           </p>
         )}
       </CardContent>

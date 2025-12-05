@@ -141,7 +141,7 @@ export default function DashboardPage() {
                   <Wallet className="h-5 w-5 text-primary" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-primary">{formatLKR(netWorth)}</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary">{formatLKR(netWorth)}</div>
                   <p className="text-xs text-muted-foreground mt-2">Assets - Liabilities</p>
                   <Progress value={75} className="mt-3 h-2" />
                 </CardContent>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                   <PiggyBank className="h-5 w-5 text-success" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-success">{savingsRate.toFixed(1)}%</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-success">{savingsRate.toFixed(1)}%</div>
                   <p className="text-xs text-muted-foreground mt-2">Of total income</p>
                   <Progress value={savingsRate} className="mt-3 h-2" />
                 </CardContent>
@@ -165,7 +165,7 @@ export default function DashboardPage() {
                   <DollarSign className="h-5 w-5 text-warning" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-warning">{formatLKR(monthlyExpenses)}</div>
+                  <div className="text-2xl sm:text-3xl font-bold text-warning">{formatLKR(monthlyExpenses)}</div>
                   <p className="text-xs text-muted-foreground mt-2">Average per month</p>
                   <Progress value={65} className="mt-3 h-2" />
                 </CardContent>

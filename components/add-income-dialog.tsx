@@ -72,13 +72,13 @@ export function AddIncomeDialog({ income, onClose }: AddIncomeDialogProps) {
             <Edit2 className="h-4 w-4" />
           </Button>
         ) : (
-          <Button>
+          <Button className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             Add Income
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>{income ? "Edit Income Source" : "Add Income Source"}</DialogTitle>

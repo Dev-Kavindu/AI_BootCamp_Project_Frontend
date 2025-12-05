@@ -8,7 +8,8 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { ColorPaletteSelector } from "@/components/color-palette-selector"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -51,7 +52,7 @@ export function NavBar() {
                     )}
                   >
                     <Icon className="h-4 w-4" />
-                    {item.label}
+                    <span className="hidden xl:inline">{item.label}</span>
                   </Link>
                 )
               })}
@@ -59,7 +60,9 @@ export function NavBar() {
           </div>
           
           <div className="flex items-center gap-2">
-            <ColorPaletteSelector />
+            <div className="hidden sm:block">
+              <ColorPaletteSelector />
+            </div>
             <ThemeToggle />
             
             {/* Mobile Menu Button */}
@@ -71,6 +74,9 @@ export function NavBar() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <VisuallyHidden>
+                  <SheetTitle>Navigation Menu</SheetTitle>
+                </VisuallyHidden>
                 <nav className="flex flex-col gap-4 mt-8">
                   {navItems.map((item) => {
                     const Icon = item.icon
