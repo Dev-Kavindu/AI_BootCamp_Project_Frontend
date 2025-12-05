@@ -34,6 +34,8 @@ class ApiClient {
         ...options,
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': '69420', // Bypass ngrok browser auth on free tier
+          'ngrok-skip-browser-warning-for-user': 'true',
           ...options.headers,
         },
       });
