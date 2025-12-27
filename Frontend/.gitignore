@@ -1,4 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Repository: AI_BootCamp_Project_Frontend
+# Author: Dev-Kavindu
+# GitHub: https://github.com/Dev-Kavindu/AI_BootCamp_Project_Frontend
 
 # dependencies
 /node_modules
@@ -31,3 +34,29 @@ next-env.d.ts
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Deployment files with secrets
+DEPLOYMENT_INSTRUCTIONS.md
+DEPLOY_INSTRUCTIONS.md
+BACKEND_DEPLOYMENT_FIXED.md
+DEPLOY_BACKEND_NOW.txt
+PRODUCTION-DEPLOYMENT-GUIDE.md
+ENVIRONMENT_SETUP_COMPLETE.md
+deploy-*.ps1
+deploy-*.js
+*-deploy*.ps1
+*-deploy*.js
+build-and-deploy*.ps1
+verify-and-deploy*.ps1
+test-before-deploy*.ps1
+simple-deploy*.ps1
+eb-quick-fix.ps1
+
+# IDE and OS files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
